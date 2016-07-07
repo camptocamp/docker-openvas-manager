@@ -6,10 +6,9 @@ ENV OPENVAS_LIBRARIES_VERSION=8.0.7 \
 RUN apt-get update -y && \
   apt-get install -y --no-install-recommends --fix-missing \
   pkg-config libssh-dev libgnutls28-dev libglib2.0-dev libpcap-dev \
-  libgpgme11-dev uuid-dev bison libksba-dev libhiredis-dev libsnmp-dev
-RUN apt-get install -y --no-install-recommends --fix-missing \
-  wget cmake build-essential libgcrypt-dev libldap2-dev doxygen \
-  libsqlite3-dev && \
+  libgpgme11-dev uuid-dev bison libksba-dev libhiredis-dev libsnmp-dev \
+  rsync wget cmake build-essential libgcrypt-dev libldap2-dev doxygen \
+  libsqlite3-dev sqlite3 xsltproc && \
   rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /openvas-src && \
