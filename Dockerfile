@@ -1,6 +1,7 @@
 FROM debian:jessie
 
 ENV OPENVAS_LIBRARIES_VERSION=8.0.7 \
+  OPENVAS_SCANNER_VERSION=5.0.5 \
   OPENVAS_MANAGER_VERSION=6.0.8
 
 RUN apt-get update -y && \
@@ -13,6 +14,7 @@ RUN apt-get update -y && \
 
 RUN mkdir /openvas-src && \
 
+    # Building openvas-libraries
     cd /openvas-src && \
     wget -nv http://wald.intevation.org/frs/download.php/2291/openvas-libraries-${OPENVAS_LIBRARIES_VERSION}.tar.gz && \
     tar zxvf openvas-libraries-${OPENVAS_LIBRARIES_VERSION}.tar.gz && \
@@ -24,6 +26,19 @@ RUN mkdir /openvas-src && \
     make install && \
     make rebuild_cache && \
 
+    # Building openvas-scanner
+    cd /openvas-src && \
+    wget -nv http://wald.intevation.org/frs/download.php/2266/openvas-scanner-${OPENVAS_SCANNER_VERSION}.tar.gz && \
+    tar zxvf openvas-scanner-${OPENVAS_SCANNER_VERSION}.tar.gz && \
+    cd /openvas-src/openvas-scanner-${OPENVAS_SCANNER_VERSION} && \
+    mkdir build && \
+    cd build && \
+    cmake .. && \
+    make -j $(nproc) && \
+    make install && \
+    make rebuild_cache && \
+
+    # Building openvas-manager
     cd /openvas-src && \
     wget -nv http://wald.intevation.org/frs/download.php/2295/openvas-manager-${OPENVAS_MANAGER_VERSION}.tar.gz && \
     tar zxvf openvas-manager-${OPENVAS_MANAGER_VERSION}.tar.gz && \
