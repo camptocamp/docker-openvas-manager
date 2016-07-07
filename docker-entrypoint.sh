@@ -9,5 +9,8 @@ openvasmd --create-user=admin
 echo "Getting OpenVAS SCAP database..."
 openvas-scapdata-sync
 
+echo "Getting CERT database..."
+openvas-certdata-sync
+
 echo "Launching openvas-manager..."
 exec /usr/local/sbin/openvasmd $*
