@@ -52,6 +52,8 @@ RUN mkdir /openvas-src && \
 
     ldconfig
 
+RUN ln -sf /proc/1/fd/1 /usr/local/var/log/openvas/openvasmd.log
+
 EXPOSE 9390
 
 COPY docker-entrypoint.sh /
