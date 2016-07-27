@@ -16,5 +16,8 @@ openvas-scapdata-sync
 echo "Getting CERT database..."
 openvas-certdata-sync
 
+echo "Modifying OpenVAS Default scanner..."
+openvasmd --modify-scanner $(openvasmd --get-scanners|grep "OpenVAS Default"|cut -f1 -d' ') --scanner-host openvas-scanner
+
 echo "Launching openvas-manager..."
 exec /usr/local/sbin/openvasmd $*
